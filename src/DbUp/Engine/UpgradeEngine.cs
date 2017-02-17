@@ -10,6 +10,21 @@ namespace DbUp.Engine
     /// </summary>
     public class UpgradeEngine
     {
+        /// <summary>
+        /// An event that is raised after each script is executed.
+        /// </summary>
+        public event EventHandler ExecutedScript;
+
+        /// <summary>
+        /// Invodes the ExecutedScript event; called whenever a script is executed.
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnExecutedScript(ExecutedScriptEventArgs e)
+        {
+            if (ExecutedScript != null)
+                ExecutedScript(this, e);
+        }
+
         private readonly UpgradeConfiguration configuration;
 
         /// <summary>
@@ -85,6 +100,7 @@ namespace DbUp.Engine
                         try
                         {
                             configuration.ScriptExecutor.Execute(script, configuration.Variables);
+                            OnExecutedScript(new ExecutedScriptEventArgs(script, configuration.ConnectionManager));
                             configuration.Journal.StoreExecutedScript(script);
 
                             executed.Add(script);

@@ -105,6 +105,7 @@ namespace DbUp.Support.SqlServer
             {
                 connectionManager.ExecuteCommandsWithManagedConnection(dbCommandFactory =>
                 {
+                    script.StartTime = System.DateTime.UtcNow;
                     foreach (var statement in scriptStatements)
                     {
                         index++;
@@ -126,6 +127,7 @@ namespace DbUp.Support.SqlServer
                             }
                         }
                     }
+                    script.EndTime = System.DateTime.UtcNow;
                 });
             }
             catch (SqlException sqlException)

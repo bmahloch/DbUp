@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.IO;
 using System.Text;
 
@@ -11,7 +12,10 @@ namespace DbUp.Engine
     {
         private readonly string contents;
         private readonly string name;
+        private DateTime startTime;        
+        private DateTime endTime;
 
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlScript"/> class.
         /// </summary>
@@ -40,7 +44,25 @@ namespace DbUp.Engine
         {
             get { return name; }
         }
-
+        /// <summary>
+        /// Gets\sets the StartTime
+        /// </summary>
+        /// <value></value>
+        public DateTime StartTime
+        {
+            get { return startTime; }
+            set { startTime = value; }
+        }
+        
+        /// <summary>
+        /// Gets\sets the EndTime
+        /// </summary>
+        /// <value></value>
+        public DateTime EndTime
+        {
+            get { return endTime; }
+            set { endTime = value; }
+        }
         /// <summary>
         /// 
         /// </summary>
